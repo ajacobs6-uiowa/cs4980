@@ -127,9 +127,20 @@ def run(playwright: Playwright):
     page.on("response", handle_response)
 
     # ---------------------------------------------------------------------
-    # 7. iterate over each url and gather network data (no privacy page search)
+    # 7. iterate over each url and gather network data
     # ---------------------------------------------------------------------
-    for url in urls:
+
+    # for url in urls:
+    #     print(f"visiting: {url}")
+    #     try:
+    #         page.goto(url, timeout=120000)
+    #         page.wait_for_load_state("networkidle")  # ensure we capture most traffic
+    #         # wait briefly on the homepage to let ads load
+    #         page.wait_for_timeout(5000)  # wait for 5 seconds
+    #     except Exception as e:
+    #         print(f"error with the url: {url}: {e}")
+
+    for url in urls[:5]:
         print(f"visiting: {url}")
         try:
             page.goto(url, timeout=120000)
