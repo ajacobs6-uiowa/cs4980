@@ -53,7 +53,7 @@ def run(playwright: Playwright):
         nonlocal packet_counter
 
         # check if the response is xhr or fetch, else skip
-        resource_type = response.request.resource_type()
+        resource_type = response.request.resource_type
         if resource_type not in ["xhr", "fetch"]:
             return
 
