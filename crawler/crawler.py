@@ -147,7 +147,7 @@ def run(playwright: Playwright):
     # ---------------------------------------------------------------------
     # 7. iterate over the first 5 urls and gather network data
     # ---------------------------------------------------------------------
-    for url in urls[:5]:
+    for url in urls[:1]:
         current_main_url = url  # set the main url for this visit
         print(f"visiting: {url}")
         try:
