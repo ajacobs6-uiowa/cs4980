@@ -69,7 +69,6 @@ def run(playwright: Playwright):
             if(collected_data != None):
                 for item in collected_data:
                     value = item["cpm"]
-                    print(value)
                     bid_data.append(value)
         
         except Exception as e:
@@ -86,29 +85,14 @@ def run(playwright: Playwright):
     cpm_values = []
     for bid_info in bid_data:
         cpm_values.append(bid_info)
-
-    print(cpm_values)
     
-
-    print("crawler has finished collecting data!")
     
-    '''for packet_info in all_packets:
-        packet_index = packet_info["packet_index"]
-        # get the main site from the main_url field
-        main_url = packet_info.get("main_url", "unknown")
-        main_netloc = urlparse(main_url).netloc if main_url else "unknown"
-        #filename: packetX_NAME_URL.json
-        file_name = f"packet{packet_index}_{packet_info['name']}_{main_netloc}.json"
-        packet_path = os.path.join(raw_data_dir, file_name)
-        with open(packet_path, "w", encoding="utf-8") as pf:
-            json.dump(packet_info, pf, indent=4)
-
     bidding_data_path = os.path.join(bidding_dir, "bidding_data.json")
     with open(bidding_data_path, "w", encoding="utf-8") as bf:
-        json.dump(extracted_bidding_data, bf, indent=4)
+        json.dump(cpm_values, bf, indent=4)
 
     print("crawler has finished collecting data!")
-    '''
+    
 # -------------------------------------------------------------------------
 # 10. entry point: run with sync_playwright
 # -------------------------------------------------------------------------
