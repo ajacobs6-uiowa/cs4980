@@ -1,3 +1,5 @@
+import sys
+import asyncio
 from playwright.sync_api import sync_playwright, Playwright
 import json
 from urllib.parse import urljoin, urlparse, urlsplit
@@ -46,14 +48,40 @@ def run(playwright: Playwright):
     bid_data = []
     bid_counter = 0
     
+    #----------------------------------------------------------------------
+    # picking the persona file list.
+    #----------------------------------------------------------------------
+    persona_trial = True
+    persona = ""
+    match sys.argv[0].lower():
+        case None:
+            persona_trial = False
+        case "lgbtq+":
+            persona = "lgbtq+.txt"
+        case "low-income":
+            persona = "low-income.txt"
+        case "youtube-pre-teen":
+            persona = "youtube-pre-teen.txt"
+        case _:
+            print("Not a defined persona, defaulting to control group.")
+            persona_trial = False
+
+    if(persona_trial):
+        with open(os.path.join(base_dir, persona), "r") as file:
+            persona_urls = [line.strip() for line in file if line.strip()]
+
+        for url in persona_urls:
+            print(f"visiting: {url}")
+            try:
+                page.goto(url, timeout=120000)
+                #page.wait_for_load_state("networkidle")
+                page.wait_for_timeout(7000)  # wait 7 seconds to let ads load
+        
+            except Exception as e:
+                print(f"error with the url: {url}: {e}")
 
 
-    #----------------------------------------------------------
-    # Getting the results of winning bids
-    #----------------------------------------------------------
-    def getWinningBids():
-        return page.add_script_tag(path='analyzeBid.js')
-    
+
 
     # ---------------------------------------------------------------------
     # 7. iterate over the urls and gather network data
@@ -92,7 +120,7 @@ def run(playwright: Playwright):
         json.dump(cpm_values, bf, indent=4)
 
     print("crawler has finished collecting data!")
-    
+
 # -------------------------------------------------------------------------
 # 10. entry point: run with sync_playwright
 # -------------------------------------------------------------------------
