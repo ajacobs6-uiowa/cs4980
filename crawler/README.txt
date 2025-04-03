@@ -5,8 +5,9 @@ Playwright, json, urllib, matplotlib
 ---------------------------------------------
 CRAWLER: 
 1. Navigate to /A5/crawler
-2. in terminal: python3 crawler.py
-3. Let the process occur, when it is finished will print a finished notice and create scraped_privacyData.json file in /A5/data
+2. in terminal: python3 crawler.py [argument]
+3. [argument] can be a choice of persona, or if blank will be the control group. 
+4. Let the process occur, when it is finished will print a finished notice and create bidding_data.json file in /A5/data
 --------------------------------------------------------------------------
 RESOURCES 
 --------------------------------------------------------------------------
@@ -24,3 +25,7 @@ https://rich.readthedocs.io/en/stable/introduction.html#
 library used to format the data 
 https://openai.com/index/chatgpt/
 List of the top 100 News websites
+https://docs.prebid.org/dev-docs/publisher-api-reference.html
+Used for the prebid.js docs. 
+https://playwright.dev/docs/evaluating
+used for the javascript in the crawler

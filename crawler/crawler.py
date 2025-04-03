@@ -42,11 +42,7 @@ def run(playwright: Playwright):
     # ---------------------------------------------------------------------
     # 4. data structures for storing results
     # ---------------------------------------------------------------------
-    #all_packets = []
-    #packet_counter = 0
-    #extracted_bidding_data = []
     bid_data = []
-    bid_counter = 0
     
     #----------------------------------------------------------------------
     # picking the persona file list.
@@ -66,6 +62,9 @@ def run(playwright: Playwright):
             print("Not a defined persona, defaulting to control group.")
             persona_trial = False
 
+    #---------------------------------------------------------------------
+    # If it's a persona trial run, run through the websites necessary. 
+    #---------------------------------------------------------------------
     if(persona_trial):
         with open(os.path.join(base_dir, persona), "r") as file:
             persona_urls = [line.strip() for line in file if line.strip()]
@@ -74,7 +73,6 @@ def run(playwright: Playwright):
             print(f"visiting: {url}")
             try:
                 page.goto(url, timeout=120000)
-                #page.wait_for_load_state("networkidle")
                 page.wait_for_timeout(7000)  # wait 7 seconds to let ads load
         
             except Exception as e:
@@ -91,7 +89,6 @@ def run(playwright: Playwright):
         print(f"visiting: {url}")
         try:
             page.goto(url, timeout=120000)
-            #page.wait_for_load_state("networkidle")
             page.wait_for_timeout(5000)  # wait 5 seconds to let ads load
             collected_data = page.evaluate("window.pbjs.getAllPrebidWinningBids")
             if(collected_data != None):
