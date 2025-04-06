@@ -1,6 +1,6 @@
 import sys
 import asyncio
-from playwright.sync_api import sync_playwright, Playwright
+from playwright.sync_api import sync_playwright, Playwright, WebError
 import json
 from urllib.parse import urljoin, urlparse, urlsplit
 import os
@@ -49,7 +49,7 @@ def run(playwright: Playwright):
     #----------------------------------------------------------------------
     persona_trial = True
     persona = ""
-    match sys.argv[0].lower():
+    match sys.argv[1].lower():
         case None:
             persona_trial = False
         case "lgbtq+":
@@ -58,6 +58,20 @@ def run(playwright: Playwright):
             persona = "low-income.txt"
         case "youtube-pre-teen":
             persona = "youtube-pre-teen.txt"
+        case "latino":
+            persona = "hispanic-latino.txt"
+        case "veteran":
+            persona = "veteran.txt"
+        case "disability":
+            persona = "physical-disability.txt"
+        case "refugee":
+            persona = "refugee.txt"
+        case "women-in-stem":
+            persona = "women-in-stem.txt"
+        case "first-gen":
+            persona = "first-gen.txt"
+        case "preteen":
+            persona = "youtube-preteen.txt"
         case _:
             print("Not a defined persona, defaulting to control group.")
             persona_trial = False
@@ -72,11 +86,16 @@ def run(playwright: Playwright):
         for url in persona_urls:
             print(f"visiting: {url}")
             try:
-                page.goto(url, timeout=120000)
+            
+
+                page.goto(url, timeout=30000)
                 page.wait_for_timeout(7000)  # wait 7 seconds to let ads load
         
             except Exception as e:
                 print(f"error with the url: {url}: {e}")
+                
+                page.wait_for_timeout(10000)
+
 
 
 
@@ -88,14 +107,16 @@ def run(playwright: Playwright):
         current_main_url = url  # set the main url for this visit
         print(f"visiting: {url}")
         try:
-            page.goto(url, timeout=120000)
+            page.goto(url, timeout=30000)
             page.wait_for_timeout(5000)  # wait 5 seconds to let ads load
-            collected_data = page.evaluate("window.pbjs.getAllPrebidWinningBids")
+            collected_data = page.evaluate("window.pbjs.getAllPrebidWinningBids()")
             if(collected_data != None):
                 for item in collected_data:
                     value = item["cpm"]
                     bid_data.append(value)
         
+
+
         except Exception as e:
             print(f"error with the url: {url}: {e}")
 
