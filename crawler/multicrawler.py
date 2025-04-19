@@ -46,14 +46,24 @@ async def run(playwright: Playwright):
         await work_queue.put(persona)
 
     
+    #----------------------------------------------------------------------
+    # 5. Creating asyncio queue to begin working on personas.
+    #----------------------------------------------------------------------
     await asyncio.gather(
         asyncio.create_task(persona_task("One",base_dir, bidding_dir,browser, urls, work_queue)),
         asyncio.create_task(persona_task("Two", base_dir, bidding_dir,browser, urls, work_queue)),
         asyncio.create_task(persona_task("Three",base_dir, bidding_dir,browser, urls, work_queue)),
         asyncio.create_task(persona_task("Four",base_dir, bidding_dir,browser, urls, work_queue)),
         asyncio.create_task(persona_task("Five", base_dir, bidding_dir,browser, urls, work_queue)),
-        asyncio.create_task(persona_task("Six", base_dir, bidding_dir, browser, urls, work_queue))
+        asyncio.create_task(persona_task("Six", base_dir, bidding_dir, browser, urls, work_queue)),
+        asyncio.create_task(persona_task("Seven", base_dir, bidding_dir, browser, urls, work_queue)),
+        asyncio.create_task(persona_task("Eight", base_dir, bidding_dir, browser, urls, work_queue)),
+        asyncio.create_task(persona_task("Nine", base_dir, bidding_dir, browser, urls, work_queue)),
         )
+    
+    #----------------------------------------------------------------------
+    # 6. Clean up process for the crawler.
+    #----------------------------------------------------------------------
     await browser.close()
 
     
