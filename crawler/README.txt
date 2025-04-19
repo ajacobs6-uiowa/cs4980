@@ -1,13 +1,12 @@
 USE:
 Setup:
 Required Installs:
-Playwright, json, urllib, matplotlib
+Playwright, json, urllib, matplotlib, asyncio
 ---------------------------------------------
 CRAWLER: 
 1. Navigate to /A5/crawler
-2. in terminal: python3 crawler.py [argument]
-3. [argument] can be a choice of persona, or if blank will be the control group. 
-4. Let the process occur, when it is finished will print a finished notice and create bidding_data.json file in /A5/data
+2. in terminal: python3 multicrawler.py 
+3. Let the process occur, when it is finished will print a finished notice and create bidding_data_[persona].json files in /A5/data_storage
 --------------------------------------------------------------------------
 RESOURCES 
 --------------------------------------------------------------------------
