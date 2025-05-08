@@ -28,3 +28,10 @@ https://docs.prebid.org/dev-docs/publisher-api-reference.html
 Used for the prebid.js docs. 
 https://playwright.dev/docs/evaluating
 used for the javascript in the crawler
+https://docs.scipy.org/doc/scipy/reference/stats.html
+Used as part of the statisical analysis
+https://realpython.com/python-async-features/
+Used for refining the asynchronous part of the multicrawler.py
+https://docs.python.org/3/library/asyncio.html
+API reference to asyncio.
+
